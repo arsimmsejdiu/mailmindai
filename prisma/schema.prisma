@@ -22,7 +22,7 @@ model User {
   //
   // role Role @default(user)
   //
-  // accounts Account[]
+  accounts Account[]
   //
   // chatbotInteraction ChatbotInteraction?
 }
@@ -72,11 +72,11 @@ model Account {
   emailAddress String
   name         String
 
-  nextDeltaToken String?
+  // nextDeltaToken String?
 
-  // user           User           @relation(fields: [userId], references: [id])
-  threads        Thread[]
-  emailAddresses EmailAddress[]
+  user User @relation(fields: [userId], references: [id])
+  // threads        Thread[]
+  // emailAddresses EmailAddress[]
 }
 
 //     // "dev": "next dev --turbo | egrep -v '^\\s?(GET|POST|OPTIONS)'",
@@ -87,7 +87,7 @@ model Thread {
   lastMessageDate DateTime
   participantIds  String[]
   accountId       String
-  account         Account  @relation(fields: [accountId], references: [id])
+  // account         Account  @relation(fields: [accountId], references: [id])
 
   done Boolean @default(false)
 
@@ -163,7 +163,7 @@ model EmailAddress {
   replyToEmails Email[] @relation("ReplyToEmails")
 
   accountId String
-  account   Account @relation(fields: [accountId], references: [id])
+  // account   Account @relation(fields: [accountId], references: [id])
 
   @@unique([accountId, address])
 }

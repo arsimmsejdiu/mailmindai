@@ -1,7 +1,9 @@
-import { Button } from "@/components/ui/button";
+import AuthoriseButton from "@/components/AuthoriseButton";
 
 export default async function Home() {
   return (
-    <Button variant="destructive">Hello</Button>
+    <div className="flex justify-center items-center min-h-screen">
+      <AuthoriseButton />
+    </div>
   );
 }
