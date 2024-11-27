@@ -17,4 +17,5 @@ export const POST = async (req: NextRequest) => {
 
   if(!dbAccount) return NextResponse.json({error: "Account not found"}, {status: 404});
 
+  return NextResponse.json({success: true});
 }
