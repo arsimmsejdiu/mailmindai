@@ -1,14 +1,16 @@
-import React from "react";
+"use client"
+
+import React, { useEffect, useState } from "react";
 import Mail from "@/app/mail/components/mail";
+import { fetchCookies } from "./FetchCookies";
 import Image from "next/image";
-import { cookies } from 'next/headers'
 
-async function MailPage() {
-  const layout = (await cookies()).get("react-resizable-panels:layout:mail")
-  const collapsed = (await cookies()).get("react-resizable-panels:collapsed")
+function MailPage() {
+  const [cookieData, setCookieData] = useState({ defaultLayout: undefined, defaultCollapsed: undefined });
 
-  const defaultLayout = layout ? JSON.parse(layout.value) : undefined
-  const defaultCollapsed = collapsed ? JSON.parse(collapsed.value) : undefined
+  useEffect(() => {
+    fetchCookies().then(data => setCookieData(data));
+  }, []);
 
   return (
     <>
@@ -30,8 +32,8 @@ async function MailPage() {
       </div>
       <div className="flex-col hidden md:flex h-screen overflow-scroll">
         <Mail
-          defaultLayout={defaultLayout}
-          defaultCollapsed={defaultCollapsed}
+          defaultLayout={cookieData.defaultLayout}
+          defaultCollapsed={cookieData.defaultCollapsed}
           navCollapsedSize={4}
         />
       </div>
