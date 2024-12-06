@@ -72,7 +72,7 @@ model Account {
   emailAddress String
   name         String
 
-  // nextDeltaToken String?
+  nextDeltaToken String?
 
   user User @relation(fields: [userId], references: [id])
   // threads        Thread[]

@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export interface SyncResponse {
   syncUpdatedToken: string;
   syncDeletedToken: string;
@@ -9,6 +11,11 @@ export interface SyncUpdatedResponse {
   nextDeltaToken: string;
   records: EmailMessage[];
 }
+
+export const emailAddressSchema = z.object({
+  name: z.string(),
+  address: z.string(),
+})
 
 export interface EmailMessage {
   id: string;
@@ -75,4 +82,31 @@ export interface EmailAttachment {
 export interface EmailHeader {
   name: string;
   value: string;
+}
+
+export interface SendEmailsProps {
+  from: EmailAddress;
+  subject: string;
+  body: string;
+  inReplyTo?: string;
+  references?: string;
+  threadId?: string;
+  to: EmailAddress[];
+  cc?: EmailAddress[];
+  bcc?: EmailAddress[];
+  replyTo?: EmailAddress;
+}
+
+export type Response = {
+  records: {
+    id: number;
+    resource: string;
+    notificationUrl: string;
+    active: boolean;
+    failSince: string;
+    failDescription: string;
+  }[];
+  totalSize: number;
+  offset: number;
+  done: boolean;
 }
